@@ -1,0 +1,7 @@
+name: Timeline
+version: '1.0'
+main: me.fishbowl.timeline.Timeline
+api-version: 1.19
+commands:
+  givemoney:
+    description: Gives player money.
