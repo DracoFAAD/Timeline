@@ -1,5 +1,6 @@
 package me.fishbowl.timeline.Commands;
 
+import me.fishbowl.timeline.Timeline;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class givemoney implements CommandExecutor {
 
         Player player = (Player) sender;
 
-
+        player.getInventory().addItem(Timeline.getInstance().iRegistry.moneyItemStack);
         return true;
     }
 }

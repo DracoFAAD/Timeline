@@ -1,7 +1,12 @@
 package me.fishbowl.timeline.Registries;
 
-public class CommandsRegistry {
-    public void registry() {
+import me.fishbowl.timeline.Commands.givemoney;
+import me.fishbowl.timeline.Timeline;
+import org.bukkit.Bukkit;
 
+public class CommandsRegistry {
+    public givemoney giveMoney = new givemoney();
+    public void registry() {
+        Timeline.getInstance().getCommand("givemoney").setExecutor(giveMoney);
     }
 }
