@@ -1,0 +1,4 @@
+name: Timeline
+version: '${project.version}'
+main: me.fishbowl.timeline.Timeline
+api-version: 1.19
