@@ -5,3 +5,9 @@ api-version: 1.19
 commands:
   givemoney:
     description: Gives player money.
+
+permissions:
+  timeline.*:
+    description: Gives access to all commmands.
+  timeline.givemoney:
+    description: Gives access to the "givemoney" command.

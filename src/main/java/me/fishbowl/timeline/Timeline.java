@@ -1,8 +1,6 @@
 package me.fishbowl.timeline;
 
-import me.fishbowl.timeline.Registries.CommandsRegistry;
-import me.fishbowl.timeline.Registries.ItemRegistries;
-import me.fishbowl.timeline.Registries.ListenerRegistry;
+import me.fishbowl.timeline.Registries.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Timeline extends JavaPlugin {
@@ -12,16 +10,16 @@ public final class Timeline extends JavaPlugin {
     public ListenerRegistry lRegistry = new ListenerRegistry();
     public CommandsRegistry cRegistry = new CommandsRegistry();
     public ItemRegistries iRegistry = new ItemRegistries();
+    public LibrariesRegistry libRegistry = new LibrariesRegistry();
 
     @Override
     public void onEnable() {
         instance = this;
 
         lRegistry.register();
-        cRegistry.registry();
-        iRegistry.registry();
-
-
+        cRegistry.register();
+        iRegistry.register();
+        libRegistry.register();
     }
 
     @Override

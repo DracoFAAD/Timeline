@@ -1,5 +1,9 @@
 me\fishbowl\timeline\Registries\CommandsRegistry.class
+me\fishbowl\timeline\Libraries\SeasonAPI\SeasonRegistry.class
+me\fishbowl\timeline\Commands\givemoney.class
+me\fishbowl\timeline\Registries\LibrariesRegistry.class
+me\fishbowl\timeline\Libraries\SeasonAPI\SeasonAPI$1.class
 me\fishbowl\timeline\Registries\ItemRegistries.class
 me\fishbowl\timeline\Registries\ListenerRegistry.class
+me\fishbowl\timeline\Libraries\SeasonAPI\SeasonAPI.class
 me\fishbowl\timeline\Timeline.class
-me\fishbowl\timeline\Commands\givemoney.class
