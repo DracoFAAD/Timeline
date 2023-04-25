@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class givemoney implements CommandExecutor {
 
@@ -27,10 +28,16 @@ public class givemoney implements CommandExecutor {
         int amount = 1;
 
         if (args.length > 0) {
-
+            try {
+                amount = Integer.parseInt(args[0]);
+            } catch (Exception e){
+                amount = 1;
+            }
         }
 
-        player.getInventory().addItem(Timeline.getInstance().iRegistry.moneyItemStack);
+        ItemStack item = Timeline.getInstance().iRegistry.moneyItemStack.clone();
+        item.setAmount(amount);
+        player.getInventory().addItem(item);
         return true;
     }
 }
