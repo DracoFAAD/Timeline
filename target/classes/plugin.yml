@@ -12,6 +12,8 @@ permissions:
     description: Gives access to all commmands.
     children:
       timeline.givemoney:
-
-  timeline.givemoney:
-    description: Gives access to the "givemoney" command.
+        description: "Gives access to the givemoney command."
+      timeline.withdrawmoney:
+        description: "Gives access to the withdrawmoney command."
+      timeline.depositmoney:
+        description: "Gives access to the depositmoney command."

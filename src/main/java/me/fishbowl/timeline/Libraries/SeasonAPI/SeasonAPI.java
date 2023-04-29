@@ -1,14 +1,19 @@
 package me.fishbowl.timeline.Libraries.SeasonAPI;
 
 import me.fishbowl.timeline.Timeline;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SeasonAPI implements Listener {
@@ -41,6 +46,35 @@ public class SeasonAPI implements Listener {
     }
 
     public void register() {
+
+        final boolean[] stopSnowing = {false};
+        BukkitRunnable snowRunnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (lastSeason == SeasonRegistry.Winter) {
+                    if (stopSnowing[0] == false) {
+                        World world = Bukkit.getWorld("world");
+                        if (world != null) {
+                            for (Player p : Bukkit.getOnlinePlayers()) {
+                                world.spawnParticle(Particle.SNOWFLAKE, p.getLocation(), 250, 9, 12, 9, 0.00001);
+                            }
+                        /*
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute at @a run particle minecraft:end_rod ~ ~ ~ 9 12 9 0.01 10 normal");
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute at @a run particle minecraft:white_ash ~ ~ ~ 9 12 9 0.00001 2550 normal");
+                        */
+                        }
+                    }
+                }
+            }
+        };
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                stopSnowing[0] = !stopSnowing[0];
+            }
+        }.runTaskTimer(Timeline.getInstance(), (20*60)*20, (20*60)*20);
+
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -50,6 +84,7 @@ public class SeasonAPI implements Listener {
 
                 if (Bukkit.getWorld("world") != null && lastSeason == null) {
                     lastSeason = calculateSeason();
+                    snowRunnable.runTaskTimer(Timeline.getInstance(), 1, 1);
                 }
 
                 SeasonRegistry newSeason = calculateSeason();
@@ -102,4 +137,18 @@ public class SeasonAPI implements Listener {
         event.getPlayer().sendMessage(ChatColor.GOLD + "Welcome back! The current season is " + seasonName + "!");
     }
 
+    @EventHandler
+    public void OnCropGrow(BlockGrowEvent event) {
+        if (lastSeason != SeasonRegistry.Winter) return;
+        if (event.getBlock().getType() == Material.BEETROOTS) return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void OnTreeGrow(StructureGrowEvent event) {
+        if (lastSeason == SeasonRegistry.Winter) {
+            event.setCancelled(true);
+        }
+    }
 }
